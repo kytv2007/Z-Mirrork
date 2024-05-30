@@ -4,8 +4,8 @@ FROM dawn001/z_mirror:latest
 # Install git
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
-# Clone the repository
-RUN git clone -b hk_deploy https://gitlab.com/Dawn-India/Z-Mirror Z-Mirror
+# Clone the GitLab repository
+RUN git clone -b hk_deploy https://gitlab.com/Dawn-India/Z-Mirror /usr/src/app/Z-Mirror
 
 # Set the working directory to the newly cloned repository
 WORKDIR /usr/src/app/Z-Mirror
@@ -13,15 +13,8 @@ WORKDIR /usr/src/app/Z-Mirror
 # Make sure permissions are set properly for the application directory
 RUN chmod 777 /usr/src/app/Z-Mirror
 
-# Copy requirements.txt first and install dependencies to utilize Docker cache efficiently
-COPY requirements.txt .
-
-# Install dependencies. If dependencies haven't changed, Docker will use the cached layer.
-# Using --no-cache-dir flag to prevent caching pip packages which can save disk space.
+# Install dependencies using the requirements.txt from the cloned repository
 RUN pip3 install --no-cache-dir -r requirements.txt
-
-# Copy the rest of the application code
-COPY . .
 
 # Expose the port your application listens on
 EXPOSE 8080
