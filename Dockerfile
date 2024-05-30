@@ -24,11 +24,11 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose the port your application listens on
-EXPOSE 6800
+EXPOSE 8080
 
 # Add a health check to ensure the application is running and listening on the correct port
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:6800/ || exit 1
+  CMD curl -f http://localhost:8080/ || exit 1
 
 # Specify the command to run the application. Using CMD instead of ENTRYPOINT for flexibility.
 CMD ["bash", "start.sh"]
