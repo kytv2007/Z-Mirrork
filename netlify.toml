@@ -1,0 +1,13 @@
+[build]
+  # Base directory where Netlify installs dependencies and runs the build command
+  base = "/usr/src/app/Z-Mirror"
+
+  # Command to build your project
+  command = "bash start.sh"
+
+  # Publish directory where the build artifacts are located
+  publish = "/usr/src/app/Z-Mirror"
+
+[dev]
+  # Specify the port to use for local development server (optional)
+  port = 8080
