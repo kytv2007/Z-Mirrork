@@ -18,7 +18,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Expose the port your application listens on
-EXPOSE 8080
+EXPOSE 6800
 
 # Specify the command to run the application. Using CMD instead of ENTRYPOINT for flexibility.
 CMD ["bash", "start.sh"]
