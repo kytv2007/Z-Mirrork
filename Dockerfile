@@ -1,4 +1,4 @@
-# Use a specific base image instead of "latest" to ensure consistency
+# Final Dockerfile to run the application
 FROM dawn001/z_mirror:latest
 
 # Install git
@@ -25,5 +25,8 @@ RUN chmod 777 /usr/src/app
 # Copy the contents from the cloned repository to the container
 COPY --from=0 /usr/src/app/Z-Mirror .
 
-# Specify the command to run the application
+# Expose the port the application is expected to listen on
+EXPOSE 8080
+
+# Run the application
 CMD ["bash", "start.sh"]
