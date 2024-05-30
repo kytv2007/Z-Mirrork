@@ -13,15 +13,17 @@ WORKDIR /usr/src/app/Z-Mirror
 # Make sure permissions are set properly for the application directory
 RUN chmod 777 /usr/src/app/Z-Mirror
 
-# Install dependencies using the requirements.txt from the cloned repository
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Use the base image specified in the GitLab Dockerfile
+FROM dawn001/z_mirror:hk_latest
 
-# Expose the port your application listens on
-EXPOSE 8080
+# Set the working directory as per the GitLab Dockerfile
+WORKDIR /usr/src/app
 
-# Add a health check to ensure the application is running and listening on the correct port
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8080/ || exit 1
+# Ensure permissions
+RUN chmod 777 /usr/src/app
 
-# Specify the command to run the application. Using CMD instead of ENTRYPOINT for flexibility.
+# Copy the contents from the cloned repository to the container
+COPY --from=0 /usr/src/app/Z-Mirror .
+
+# Specify the command to run the application
 CMD ["bash", "start.sh"]
